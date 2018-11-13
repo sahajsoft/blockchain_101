@@ -1,0 +1,72 @@
+version: "3.7"
+volumes:
+  shared:
+networks:
+  privatechainnet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.16.0.0/24
+services:
+  bootnode:
+    build:
+      context: ./bootnode
+    networks:
+      privatechainnet:
+        ipv4_address: 172.16.0.2
+    volumes:
+      - type: volume
+        source: shared
+        target: /shared
+  miner:
+    build:
+      context: ./miner
+    depends_on:
+      - bootnode
+    environment:
+      - bootnodeIP=172.16.0.2
+      - myIP=172.16.0.3
+    networks:
+      privatechainnet:
+        ipv4_address: 172.16.0.3
+    ports:
+      - 8545:8545
+    volumes:
+      - type: volume
+        source: shared
+        target: /shared
+  node:
+    build:
+      context: ./node
+    depends_on:
+      - bootnode
+    environment:
+      - bootnodeIP=172.16.0.2
+      - myIP=172.16.0.4
+    networks:
+      privatechainnet:
+        ipv4_address: 172.16.0.4
+    ports:
+      - 8546:8545
+    volumes:
+      - type: volume
+        source: shared
+        target: /shared
+  monitor-backend:
+    build:
+      context: ./monitor/backend
+    depends_on:
+      - node
+    networks:
+      privatechainnet:
+        ipv4_address: 172.16.0.5
+  monitor-front:
+    build:
+      context: ./monitor/frontend
+    depends_on:
+      - node
+    networks:
+      privatechainnet:
+        ipv4_address: 172.16.0.6
+    ports:
+      - 3000:3000
