@@ -3,7 +3,9 @@ module.exports = {
     development: {
       host: "localhost",
       port: 8545,
-      network_id: "15"
+      from: "####unlockedAccountWithFunds####",
+      network_id: "15",
+      gas: 4700000
     }
   }
 };
