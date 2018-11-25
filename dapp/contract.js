@@ -1,8 +1,11 @@
 const BC_MAIN_NODE_ENDPOINT = 'http://localhost:8545';
 const Web3 = require('web3');
 const bip39 = require('bip39')
+const Goods = require('./build/contracts/Goods.json');
+const contract = require('truffle-contract');
 const web3 = new Web3(new Web3.providers.HttpProvider(BC_MAIN_NODE_ENDPOINT));
 const HDWalletProvider = require("truffle-hdwallet-provider");
+const goodsInstance = contract(Goods);
 
 generateSeed = () => {
     return bip39.generateMnemonic();
@@ -46,7 +49,42 @@ addAccount = () => {
     });
 };
 
+createBatch = (seedPhrase, senderAddress, batchInfo) => {
+    var provider = new HDWalletProvider(seedPhrase, BC_MAIN_NODE_ENDPOINT);
+    web3.setProvider(provider);
+    goodsInstance.setProvider(provider);
+    const params = [batchInfo.name, batchInfo.uuid, batchInfo.manafacturerName];
+    var configs = {};
+    configs.gas = 470000;
+    configs.gasPrice = 1;
+    return goodsInstance.deployed()
+        .then((instance) => {
+            configs.from = senderAddress; // can be fetched from web3.eth.getAccounts.
+            console.log(createBatch, params, configs)
+            return instance["createBatch"](...params, configs);
+        }).then((result) => {
+            console.log(result)
+            return result;
+        })
+}
+
+getBatch = (batchId) => {
+    const params = [batchId];
+    return goodsInstance.deployed()
+        .then((instance) => {
+            console.log("GetBatch By ID", params)
+            return instance["getBatchById"](...params);
+        }).then((result) => {
+            console.log(result)
+            return result;
+        })
+
+}
+
 
 module.exports = {
     addAccount: addAccount,
+    createBatch: createBatch,
+    getBatch: getBatch
+
 };
