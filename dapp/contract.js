@@ -16,7 +16,7 @@ addAccount = () => {
         let newUserAddress;
         let seed = generateSeed();
         console.log("Seed", seed);
-        let provider = new HDWalletProvider(seed, BC_MAIN_NODE_ENDPOINT);
+        let provider = new HDWalletProvider(seed, BC_MAIN_NODE_ENDPOINT, 1);
         web3.setProvider(provider); // Check with team about reusing instances between web3 provider and hd wallet provider
         web3.eth.getAccounts((error, accounts) => {
             newUserAddress = accounts[0];
@@ -49,23 +49,25 @@ addAccount = () => {
     });
 };
 
-createBatch = (seedPhrase, senderAddress, batchInfo) => {
-    var provider = new HDWalletProvider(seedPhrase, BC_MAIN_NODE_ENDPOINT);
+createBatch = (seedPhrase, batchInfo) => {
+    var provider = new HDWalletProvider(seedPhrase, BC_MAIN_NODE_ENDPOINT, 1);
     web3.setProvider(provider);
     goodsInstance.setProvider(provider);
     const params = [batchInfo.name, batchInfo.uuid, batchInfo.manafacturerName];
     var configs = {};
     configs.gas = 470000;
     configs.gasPrice = 1;
-    return goodsInstance.deployed()
-        .then((instance) => {
-            configs.from = senderAddress; // can be fetched from web3.eth.getAccounts.
-            console.log(createBatch, params, configs)
-            return instance["createBatch"](...params, configs);
-        }).then((result) => {
-            console.log(result)
-            return result;
-        })
+    return web3.eth.getAccounts().then((accounts) => {
+        userAddress = accounts[0].toLowerCase();
+        return goodsInstance.deployed()
+            .then((instance) => {
+                configs.from = userAddress; // can be fetched from web3.eth.getAccounts.
+                return instance["createBatch"](...params, configs);
+            }).then((result) => {
+                console.log(result)
+                return result;
+            })
+    });
 }
 
 getBatch = (batchId) => {

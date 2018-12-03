@@ -28,7 +28,7 @@ app.post('/account', function (req, res, next) {
 
 app.post('/batch', function (req, res, next) {
     console.log(req.body);
-    contract.createBatch(req.body.seedPhrase, req.body.senderAddress, req.body.batchInfo).then((result) =>  {
+    contract.createBatch(req.body.seedPhrase, req.body.batchInfo).then((result) =>  {
         res.json(result);
         res.end();
     }).catch ((err) => {
