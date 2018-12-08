@@ -18,7 +18,7 @@ To deploy the dapp and run the api server:
 
 ```
 cd dapp
-docker build -t dapp
+docker build -t dapp .
 docker run --network="network_privatechainnet" -p 3001:3001 dapp
 ``` 
 
