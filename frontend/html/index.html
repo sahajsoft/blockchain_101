@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+    <title>Blockchain</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+            <h4 class="display-4">Step 1: Create Account</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary request-account">Request Account</button>
+        </div>
+        <div class="col">
+            <h5 class="display-5 request-account-response-status"></h5>
+            <h6 class="display-6 request-account-response-data"></h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4 class="display-4">Step 2: Add Batch</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            <input type="text" class="form-control seed-phrase" placeholder="Enter Seed Phrase">
+            <input type="text" class="form-control name" placeholder="Enter Name">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control manufacturer-name" placeholder="Enter Manufacturer Name">
+            <input type="text" class="form-control batch-id" placeholder="Enter Batch Id">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-primary create-batch">Create Batch</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            <h5 class="display-5 create-batch-response-status"></h5>
+            <h6 class="display-6 create-batch-response-data"></h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4 class="display-4">Step: 3 Lookup Batch</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <input type="text" class="form-control get-batch-id" placeholder="Enter Batch ID">
+        </div>
+        <div class="col">
+          <h5 class="display-5 get-batch-response-status"></h5>
+          <h6 class="display-6 get-batch-response-data"></h6>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-primary get-batch">Get Batch</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>

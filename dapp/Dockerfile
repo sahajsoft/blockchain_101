@@ -1,7 +1,7 @@
-FROM node:8 AS build
-COPY . /src
+FROM node:8-alpine
+RUN apk add --update python python-dev py-pip build-base git
+RUN npm install -g truffle
+COPY . ./src
 WORKDIR /src
 RUN npm install
-RUN npm install -g truffle
-RUN truffle migrate --network development
-RUN truffle test
+CMD truffle migrate --network development && exec node app.js
