@@ -4,7 +4,6 @@ const assert = require('assert');
 let goodsInstance;
 before(async () => {
     goodsInstance = await Goods.deployed();
-    console.log(goodsInstance.address);
 });
 
 contract('Goods', (accounts) => {
