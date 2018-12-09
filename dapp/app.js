@@ -66,6 +66,23 @@ app.get('/batch/:batchId', function (req, res, next) {
     });
 });
 
+app.get('/logs', function (req, res, next) {
+  new BatchService().
+    getLogs()
+    .then(result => {
+      result.get(((err, logs) => {
+        res.json(logs);
+        res.end();
+      }))
+
+
+    })
+    .catch(reason => {
+      console.log(reason);
+      res.sendStatus(500);
+    });
+});
+
 app.get('/batch/:batchId/checkOwner/:ownerAddress', function (req, res, next) {
   new BatchService().
     checkOwner(req.params.batchId, req.params)

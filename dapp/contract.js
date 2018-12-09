@@ -14,7 +14,7 @@ class AccountsService {
     const provider = new Web3.providers.HttpProvider(BC_MAIN_NODE_ENDPOINT);
     const web3 = new Web3(provider);
     const { utils: { toWei }, eth } = web3;
-    const { sendTransaction, personal: { unlockAccount} } = eth;
+    const { sendTransaction, personal: { unlockAccount } } = eth;
     const value = toWei(wei.toString());
     return this.getAccount(provider)
       .then(from =>
@@ -56,7 +56,7 @@ class BatchService {
       goods.currentProvider.sendAsync = function () {
         return goods.currentProvider.send.apply(
           goods.currentProvider, arguments
-          );
+        );
       };
     }
     return goods.deployed();
@@ -66,7 +66,7 @@ class BatchService {
     const provider = new HDWalletProvider(seed, BC_MAIN_NODE_ENDPOINT, 1);
     return Promise
       .all([this._goods(provider), this._configuration(provider)])
-      .then(([goods, configuration]) => 
+      .then(([goods, configuration]) =>
         goods.createBatch(name, uuid, manufacturerName, configuration));
   }
 
@@ -89,6 +89,13 @@ class BatchService {
     return this._goods(provider)
       .then(goods => goods.isCurrentOwnerOf(ownerAddress, id));
   }
+
+  getLogs() {
+    const provider = new Web3.providers.HttpProvider(BC_MAIN_NODE_ENDPOINT);
+    return this._goods(provider)
+      .then(goods => goods.BatchLog({}, { fromBlock: 0, toBlock: 'latest' }));
+  }
+
 }
 
 module.exports = {
