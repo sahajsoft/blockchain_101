@@ -30,7 +30,7 @@ $(document).ready(function() {
         };
         $.post(
             host + batchPath,
-            body,
+            JSON.stringify(body),
             function(data, status) {
                 $(".create-batch-response-status").text(status === "success" ? "Batch created successfully" : "Something went wrong please try again later");
                 // $(".create-batch-response-data").text("Your Batch details are: " + data);
