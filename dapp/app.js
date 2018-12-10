@@ -1,14 +1,17 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 const app = express()
+const cors = require('cors');
 const port = 3001
 const { BatchService, AccountsService } = require('./contract');
 app.use(bodyParser.json());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req, res) => res.send('Hello World!'))
 
 // creates a new ethereum account, seeds the account with some money and creates the wallet - response provides the seed phrase that will be used to make future transactions
 app.post('/account', function (req, res, next) {
+  console.log('Trying to create account');
   new AccountsService()
     .add()
     .then(result => {
@@ -24,9 +27,9 @@ app.post('/account', function (req, res, next) {
 app.post('/batch', function (req, res, next) {
   const accounts$ = new AccountsService();
   const batch$ = new BatchService(accounts$);
-  const { seed, batchInfo } = req.body;
+  const { seedPhrase, batchInfo } = req.body;
   batch$
-    .create(seed, batchInfo)
+    .create(seedPhrase, batchInfo)
     .then(result => {
       res.json(result);
       res.end();
