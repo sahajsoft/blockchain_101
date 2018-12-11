@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var host = "http://172.16.0.7:3001";
+    var host = "http://localhost:3001";
     var accountPath = "/account";
     var batchPath = "/batch";
 
