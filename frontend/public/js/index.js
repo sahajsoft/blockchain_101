@@ -52,5 +52,36 @@ $(document).ready(function () {
     );
   });
 
+  $(".transfer-batch").click(function () {
+    var batchId = $(".transfer-batch-id").val().trim();
+    var seedPhrase = $(".transfer-seed-phrase").val().trim();
+    var to = $(".transfer-to").val().trim();
+    var body = {
+      seedPhrase: seedPhrase,
+      to: to
+    };
+    $.ajax({
+      type: 'POST',
+      url:   host + batchPath + "/" + batchId + "/transfer",
+      data: JSON.stringify(body),
+      dataType: "json",
+      contentType: 'application/json',
+      success: function (data, status) {
+        $(".transfer-batch-response-status").text(status === "success" ? "Batch transferred successfully" : "Something went wrong please try again later");
+        // $(".transfer-batch-response-data").text("Name: " + data[0] + "\tManufacturer Name: " + data[1]);
+      }
     });
- });
+  });
+
+  $(".check-batch").click(function () {
+    var batchId = $(".check-batch-id").val().trim();
+    var ownerAddress = $(".check-owner-id").val().trim();
+    $.get(
+      host + batchPath + "/" + batchId + "/checkOwner/" + ownerAddress,
+      function (data, status) {
+        $(".check-batch-response-status").text(data ? "Is current owner" : "Is not the owner");
+        // $(".transfer-batch-response-data").text("Name: " + data[0] + "\tManufacturer Name: " + data[1]);
+      }
+    );
+  });
+});

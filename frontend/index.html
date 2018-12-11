@@ -69,6 +69,53 @@
           <button type="button" class="btn btn-primary get-batch">Get Batch</button>
         </div>
       </div>
+
+      <div class="row">
+        <div class="col">
+          <h4 class="display-4">Step: 4 Transfer Batch</h4>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            <input type="text" class="form-control transfer-seed-phrase" placeholder="Enter Seed Phrase">
+            <input type="text" class="form-control transfer-batch-id" placeholder="Enter Batch ID to transfer">
+        </div>
+        <div class="col">
+            <input type="text" class="form-control transfer-to" placeholder="Enter address to transfer to">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="button" class="btn btn-primary transfer-batch">Transfer Batch</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <h5 class="display-5 transfer-batch-response-status"></h5>
+          <h6 class="display-6 transfer-batch-response-data"></h6>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h4 class="display-4">Step: 5 Check Current Owner</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="text" class="form-control check-batch-id" placeholder="Enter Batch ID">
+        <input type="text" class="form-control check-owner-id" placeholder="Enter address">
+      </div>
+      <div class="col">
+        <h5 class="display-5 check-batch-response-status"></h5>
+        <h6 class="display-6 check-batch-response-data"></h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-primary check-batch">Check Batch</button>
+      </div>
     </div>
 
     <!-- Optional JavaScript -->
