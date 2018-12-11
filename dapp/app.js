@@ -15,6 +15,7 @@ app.post('/account', function (req, res, next) {
   new AccountsService()
     .add()
     .then(result => {
+      console.log('Account created');
       res.json(result);
       res.end();
     })
@@ -27,7 +28,9 @@ app.post('/account', function (req, res, next) {
 app.post('/batch', function (req, res, next) {
   const accounts$ = new AccountsService();
   const batch$ = new BatchService(accounts$);
+  
   const { seedPhrase, batchInfo } = req.body;
+  console.log(batchInfo);
   batch$
     .create(seedPhrase, batchInfo)
     .then(result => {
@@ -43,9 +46,9 @@ app.post('/batch', function (req, res, next) {
 app.post('/batch/:batchId/transfer', function (req, res, next) {
   const accounts$ = new AccountsService();
   const batch$ = new BatchService(accounts$);
-  const { seed, to } = req.body;
+  const { seedPhrase, to } = req.body;
   batch$
-    .transfer(seed, req.params.batchId, to)
+    .transfer(seedPhrase, req.params.batchId, to)
     .then(result => {
       res.json(result);
       res.end();
@@ -88,7 +91,7 @@ app.get('/logs', function (req, res, next) {
 
 app.get('/batch/:batchId/checkOwner/:ownerAddress', function (req, res, next) {
   new BatchService().
-    checkOwner(req.params.batchId, req.params)
+    checkOwner(req.params.batchId, req.params.ownerAddress)
     .then(result => {
       res.json(result);
       res.end();
