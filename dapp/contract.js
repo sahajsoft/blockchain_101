@@ -1,4 +1,4 @@
-const BC_MAIN_NODE_ENDPOINT = 'http://localhost:8545';
+const BC_MAIN_NODE_ENDPOINT = 'http://172.16.0.3:8545';
 const Web3 = require('web3');
 const bip39 = require('bip39')
 const Goods = require('./build/contracts/Goods.json');
