@@ -2,6 +2,7 @@ $(document).ready(function () {
   var host = "http://localhost:3001";
   var accountPath = "/account";
   var batchPath = "/batch";
+  var logsPath = "/logs";
 
   $(".request-account").click(function () {
     var body = "";
@@ -84,4 +85,36 @@ $(document).ready(function () {
       }
     );
   });
+
+  function createTableHeader(headers) {
+    return headers.map(function(header) {
+      return "<th scope=\"col\">" + header.toUpperCase() + "</th>";
+    }).toString().replace(/,/g, "");
+  }
+
+  function createTableBody(body) {
+    var keys = Object.keys(body[0]);
+    return body.map(function(e) {
+      return "<tr>" + 
+        keys.map(function(key) {
+          if(key === "timestamp") {return "<td>" + new Date(e[key] * 1000) + "</td>";}
+          return "<td>" + e[key] + "</td>";
+        }).toString().replace(/,/g, "") + "</tr>";
+    }).toString().replace(/,/g, "");
+  }
+
+  setInterval(function() {
+    $.get(
+      host + logsPath,
+      function(data, status) {
+        if(status === "success" && data.length > 0) {
+          var info = data.map(function(e) { return e.args; });
+          $(".audit-log").empty();
+          $(".audit-log").prepend(
+            "<thead><tr>" +  createTableHeader(Object.keys(info[0])) + "</tr></thead>" + "<tbody>" + createTableBody(info) + "</tbody>"
+          );
+        }
+      }
+    );
+  }, 2000);
 });
