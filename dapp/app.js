@@ -3,9 +3,11 @@ const bodyParser = require('body-parser');
 const app = express()
 const cors = require('cors');
 const port = 3001
+const morgan = require('morgan');
 const { BatchService, AccountsService } = require('./contract');
 app.use(bodyParser.json());
 app.use(cors());
+app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.get('/', (req, res) => res.send('Hello World!'))
 

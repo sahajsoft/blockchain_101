@@ -15,6 +15,7 @@
     "bip39": "^2.5.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "morgan": "^1.9.1",
     "truffle-contract": "^3.0.6",
     "truffle-hdwallet-provider": "0.0.6",
     "web3": "^1.0.0-beta.36"
